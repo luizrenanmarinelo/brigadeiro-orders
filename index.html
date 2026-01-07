@@ -4,50 +4,118 @@
   <meta charset="UTF-8">
   <title>Brigadeiro Orders 🍫</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #5a331f;
-      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4b2a1a, #6b3e26);
+      padding: 30px 15px;
     }
+
     .container {
-      max-width: 400px;
+      max-width: 420px;
       margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 20px;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
+
+    /* LOGO AREA */
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .logo img {
+      width: 90px;
+      height: auto;
+    }
+
     h2 {
       text-align: center;
+      margin-bottom: 20px;
+      color: #4b2a1a;
+      font-weight: 600;
     }
-    input, textarea, select, button {
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4b2a1a;
+      margin-top: 15px;
+      display: block;
+    }
+
+    input, textarea, select {
       width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      margin-top: 6px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
     }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #6b3e26;
+    }
+
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+
     button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
       background: #6b3e26;
       color: white;
       font-size: 16px;
-      border: none;
+      font-weight: 600;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
+
     button:hover {
-      background: #5a331f;
+      background: #4b2a1a;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+      margin-top: 15px;
     }
   </style>
 </head>
+
 <body>
 
 <div class="container">
+
+  <!-- LOGO -->
+  <div class="logo">
+    <!-- Replace src with your logo file -->
+    <img src="logo.png" alt="Brigadeiros MVC Logo">
+  </div>
+
   <h2>Order Brigadeiros 🍫</h2>
 
-  <input type="text" id="name" placeholder="Your name" required>
+  <label>Your Name</label>
+  <input type="text" id="name" placeholder="Enter your name" required>
 
+  <label>Flavor</label>
   <select id="flavor">
-    <option value="">Select flavor</option>
+    <option value="">Select a flavor</option>
     <option>Brigadeiros</option>
     <option>Beijinhos</option>
     <option>Strawberry Nesquik</option>
@@ -58,13 +126,21 @@
     <option>Hot Chocolate</option>
   </select>
 
-  <input type="number" id="quantity" placeholder="Quantity" min="1">
+  <label>Quantity</label>
+  <input type="number" id="quantity" placeholder="How many?" min="1">
 
+  <label>Pickup Date</label>
   <input type="date" id="pickup">
 
-  <textarea id="notes" placeholder="Extra notes"></textarea>
+  <label>Extra Notes</label>
+  <textarea id="notes" placeholder="Any special requests?"></textarea>
 
-  <button onclick="sendOrder()">Send Order</button>
+  <button onclick="sendOrder()">Send Order via WhatsApp</button>
+
+  <div class="footer">
+    Handmade Brazilian sweets • On-campus pickup
+  </div>
+
 </div>
 
 <script>
@@ -76,19 +152,19 @@ function sendOrder() {
   const notes = document.getElementById("notes").value;
 
   if (!name || !flavor || !quantity) {
-    alert("Please fill required fields");
+    alert("Please fill in all required fields.");
     return;
   }
 
-  const message = 
-    `Hello! I want to order brigadeiros 🍫%0A%0A` +
+  const message =
+    `Hello! I want to place an order 🍫%0A%0A` +
     `Name: ${name}%0A` +
     `Flavor: ${flavor}%0A` +
     `Quantity: ${quantity}%0A` +
     `Pickup date: ${pickup}%0A` +
     `Notes: ${notes}`;
 
-  const phone = "+14847973770"; // Replace with your phone number
+  const phone = "14847973770"; // NO + sign
   window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
 }
 </script>
