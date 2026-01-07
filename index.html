@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brigadeiro Orders 🍫</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f3ef;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    h2 {
+      text-align: center;
+    }
+    input, textarea, select, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #6b3e26;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #5a331f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Order Brigadeiros 🍫</h2>
+
+  <input type="text" id="name" placeholder="Your name" required>
+
+  <select id="flavor">
+    <option value="">Select flavor</option>
+    <option>Classic Chocolate</option>
+    <option>White Chocolate</option>
+    <option>Nutella</option>
+    <option>Mixed Box</option>
+  </select>
+
+  <input type="number" id="quantity" placeholder="Quantity" min="1">
+
+  <input type="date" id="pickup">
+
+  <textarea id="notes" placeholder="Extra notes"></textarea>
+
+  <button onclick="sendOrder()">Send Order</button>
+</div>
+
+<script>
+function sendOrder() {
+  const name = document.getElementById("name").value;
+  const flavor = document.getElementById("flavor").value;
+  const quantity = document.getElementById("quantity").value;
+  const pickup = document.getElementById("pickup").value;
+  const notes = document.getElementById("notes").value;
+
+  if (!name || !flavor || !quantity) {
+    alert("Please fill required fields");
+    return;
+  }
+
+  const message = 
+    `Hello! I want to order brigadeiros 🍫%0A%0A` +
+    `Name: ${name}%0A` +
+    `Flavor: ${flavor}%0A` +
+    `Quantity: ${quantity}%0A` +
+    `Pickup date: ${pickup}%0A` +
+    `Notes: ${notes}`;
+
+  const phone = "+14847973770"; // Replace with your phone number
+  window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+}
+</script>
+
+</body>
+</html>
