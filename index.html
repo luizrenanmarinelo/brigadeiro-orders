@@ -93,6 +93,53 @@
     }
   </style>
 </head>
+<body>
+<!-- ORDER MODAL -->
+<div id="orderModal" style="
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.6);
+  z-index:999;
+  justify-content:center;
+  align-items:center;
+">
+  <div style="
+    background:#fff;
+    padding:25px;
+    border-radius:20px;
+    max-width:320px;
+    text-align:center;
+    font-family:Poppins, sans-serif;
+  ">
+    <h3 style="color:#4b2a1a; margin-bottom:10px;">
+      Order Ready ✅
+    </h3>
+
+    <p style="font-size:14px; color:#555; margin-bottom:20px;">
+      Your order has been copied.<br>
+      Just paste it into Instagram DM and send 💬
+    </p>
+
+    <button onclick="openInstagram()" style="
+      background:#6b3e26;
+      color:#fff;
+      border:none;
+      padding:12px;
+      width:100%;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+    ">
+      Open Instagram
+    </button>
+
+    <p style="font-size:12px; color:#888; margin-top:12px;">
+      (Tap & hold → Paste)
+    </p>
+  </div>
+</div>
 
 <body>
 
@@ -138,8 +185,8 @@
   <select id="boxQuantity" style="display:none;">
     <option value="">Select boxes</option>
     <option value="1">1 Box – $5</option>
-    <option value="2">2 Boxes + 1 FREE – $10</option>
-    <option value="3">3 Boxes – $10</option>
+    <option value="2">2 Boxes – $10</option>
+    <option value="3">Buy 2 Get 1 Free – $10</option>
   </select>
 
   <!-- FLAVORS -->
@@ -157,6 +204,8 @@
   <select id="hotQuantity" style="display:none;">
     <option value="">Select size</option>
     <option value="1">1 Cup – $5</option>
+    <option value="2">2 Cup – $10</option>
+    <option value="3">3 Cup – $15</option>
   </select>
 
   <p class="price" id="priceDisplay">Total: $0</p>
@@ -169,7 +218,7 @@
   <label>Extra Notes</label>
   <textarea id="notes" placeholder="Any special requests?"></textarea>
 
-  <button onclick="sendOrder()">Send Order via WhatsApp</button>
+<button onclick="sendOrder()">Send Order</button>
 
   <div class="footer">
     Handmade Brazilian sweets • On-campus pickup
@@ -178,6 +227,14 @@
 </div>
 
 <script>
+/* ===== ORDER CHANNEL CONFIG ===== */
+const ORDER_CHANNEL = "instagram"; 
+// change to "whatsapp" when ready
+
+const INSTAGRAM_USERNAME = "brigadeiros_mvc";
+const WHATSAPP_PHONE = "14847973770";
+/* ===== END CONFIG ===== */
+
 function updateProduct() {
   const product = document.getElementById("productType").value;
 
@@ -220,6 +277,8 @@ function updatePrice() {
   if (box === "2" || box === "3") total = 10;
 
   if (hot === "1") total = 5;
+  if (hot === "2") total = 10;
+  if (hot === "3") total = 15;
 
   document.getElementById("priceDisplay").innerText = `Total: $${total}`;
 }
@@ -243,6 +302,10 @@ function show(...ids) {
 }
 
 document.addEventListener("change", updatePrice);
+</script>
+
+<script>
+let copiedMessage = "";
 
 function sendOrder() {
   const name = document.getElementById("name").value;
@@ -265,24 +328,37 @@ function sendOrder() {
       ? document.getElementById("unitQuantity").value + " units"
       : document.getElementById("boxQuantity").value + " box(es)";
 
-    details = `Brigadeiros%0AQuantity: ${qty}%0AFlavor: ${flavor}`;
+    details = `Brigadeiros
+Quantity: ${qty}
+Flavor: ${flavor}`;
   }
 
   if (product === "hotchocolate") {
-    details = `Hot Chocolate%0AQuantity: 1 cup`;
+    details = `Hot Chocolate
+Quantity: 1 cup`;
   }
 
-  const message =
-    `Hello! I want to place an order 🍫☕%0A%0A` +
-    `Name: ${name}%0A` +
-    `${details}%0A` +
-    `${total}%0A` +
-    `Pickup date: ${pickup}%0A` +
-    `Notes: ${notes}`;
+  copiedMessage =
+`ORDER DETAILS 🍫☕
+Name: ${name}
+${details}
+${total}
+Pickup date: ${pickup}
+Notes: ${notes}`;
 
-  window.open(`https://wa.me/14847973770?text=${message}`, "_blank");
+  navigator.clipboard.writeText(copiedMessage).then(() => {
+    document.getElementById("orderModal").style.display = "flex";
+  }).catch(() => {
+    alert("Could not copy order. Please try again.");
+  });
+}
+
+function openInstagram() {
+  document.getElementById("orderModal").style.display = "none";
+  window.open(`https://ig.me/m/${INSTAGRAM_USERNAME}`, "_blank");
 }
 </script>
+
 
 </body>
 </html>
