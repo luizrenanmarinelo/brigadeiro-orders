@@ -5,7 +5,6 @@
   <title>Brigadeiro Orders 🍫</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
@@ -24,7 +23,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
 
-    /* LOGO AREA */
     .logo {
       display: flex;
       justify-content: center;
@@ -33,14 +31,12 @@
 
     .logo img {
       width: 90px;
-      height: auto;
     }
 
     h2 {
       text-align: center;
       margin-bottom: 20px;
       color: #4b2a1a;
-      font-weight: 600;
     }
 
     label {
@@ -58,12 +54,6 @@
       border-radius: 10px;
       border: 1px solid #ddd;
       font-size: 14px;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: #6b3e26;
     }
 
     textarea {
@@ -82,11 +72,17 @@
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s ease;
     }
 
     button:hover {
       background: #4b2a1a;
+    }
+
+    .price {
+      margin-top: 15px;
+      font-weight: 600;
+      color: #4b2a1a;
+      text-align: center;
     }
 
     .footer {
@@ -102,36 +98,74 @@
 
 <div class="container">
 
-  <!-- LOGO -->
   <div class="logo">
-    <!-- Replace src with your logo file -->
     <img src="logo.png" alt="Brigadeiros MVC Logo">
   </div>
 
   <h2>Order Brigadeiros 🍫</h2>
 
+  <!-- NAME -->
   <label>Your Name</label>
   <input type="text" id="name" placeholder="Enter your name" required>
 
-  <label>Flavor</label>
-  <select id="flavor">
-    <option value="">Select a flavor</option>
+  <!-- PRODUCT TYPE -->
+  <label>Product</label>
+  <select id="productType" onchange="updateProduct()">
+    <option value="">Select product</option>
+    <option value="brigadeiro">Brigadeiros</option>
+    <option value="hotchocolate">Hot Chocolate</option>
+  </select>
+
+  <!-- BRIGADEIRO TYPE -->
+  <label id="orderTypeLabel" style="display:none;">Order Type</label>
+  <select id="orderType" style="display:none;" onchange="updateOptions()">
+    <option value="">Select</option>
+    <option value="unit">Unit Deals</option>
+    <option value="box">Boxes</option>
+  </select>
+
+  <!-- UNIT DEALS -->
+  <label id="unitLabel" style="display:none;">Unit Deals</label>
+  <select id="unitQuantity" style="display:none;">
+    <option value="">Select deal</option>
+    <option value="6">6 units – $10</option>
+    <option value="10">10 units – $15</option>
+    <option value="15">15 units – $20</option>
+  </select>
+
+  <!-- BOX DEALS -->
+  <label id="boxLabel" style="display:none;">Box Deals</label>
+  <select id="boxQuantity" style="display:none;">
+    <option value="">Select boxes</option>
+    <option value="1">1 Box – $5</option>
+    <option value="2">2 Boxes + 1 FREE – $10</option>
+    <option value="3">3 Boxes – $10</option>
+  </select>
+
+  <!-- FLAVORS -->
+  <label id="flavorLabel" style="display:none;">Flavor</label>
+  <select id="flavor" style="display:none;">
+    <option value="">Select flavor</option>
     <option>Brigadeiros</option>
     <option>Beijinhos</option>
     <option>Strawberry Nesquik</option>
-    <option>Box of Brigadeiros</option>
-    <option>Box of Strawberry</option>
-    <option>Box of Beijinhos</option>
-    <option>Mixed Box</option>
-    <option>Hot Chocolate</option>
+    <option>Mixed</option>
   </select>
 
-  <label>Quantity</label>
-  <input type="number" id="quantity" placeholder="How many?" min="1">
+  <!-- HOT CHOCOLATE -->
+  <label id="hotLabel" style="display:none;">Hot Chocolate</label>
+  <select id="hotQuantity" style="display:none;">
+    <option value="">Select size</option>
+    <option value="1">1 Cup – $5</option>
+  </select>
 
+  <p class="price" id="priceDisplay">Total: $0</p>
+
+  <!-- PICKUP -->
   <label>Pickup Date</label>
   <input type="date" id="pickup">
 
+  <!-- NOTES -->
   <label>Extra Notes</label>
   <textarea id="notes" placeholder="Any special requests?"></textarea>
 
@@ -144,28 +178,109 @@
 </div>
 
 <script>
+function updateProduct() {
+  const product = document.getElementById("productType").value;
+
+  hideAll();
+
+  if (product === "brigadeiro") {
+    show("orderType", "orderTypeLabel", "flavor", "flavorLabel");
+  }
+
+  if (product === "hotchocolate") {
+    show("hotQuantity", "hotLabel");
+  }
+
+  updatePrice();
+}
+
+function updateOptions() {
+  const type = document.getElementById("orderType").value;
+
+  hide("unitQuantity", "unitLabel", "boxQuantity", "boxLabel");
+
+  if (type === "unit") show("unitQuantity", "unitLabel");
+  if (type === "box") show("boxQuantity", "boxLabel");
+
+  updatePrice();
+}
+
+function updatePrice() {
+  let total = 0;
+
+  const unit = document.getElementById("unitQuantity").value;
+  const box = document.getElementById("boxQuantity").value;
+  const hot = document.getElementById("hotQuantity").value;
+
+  if (unit === "6") total = 10;
+  if (unit === "10") total = 15;
+  if (unit === "15") total = 20;
+
+  if (box === "1") total = 5;
+  if (box === "2" || box === "3") total = 10;
+
+  if (hot === "1") total = 5;
+
+  document.getElementById("priceDisplay").innerText = `Total: $${total}`;
+}
+
+function hideAll() {
+  hide(
+    "orderType","orderTypeLabel",
+    "unitQuantity","unitLabel",
+    "boxQuantity","boxLabel",
+    "flavor","flavorLabel",
+    "hotQuantity","hotLabel"
+  );
+}
+
+function hide(...ids) {
+  ids.forEach(id => document.getElementById(id).style.display = "none");
+}
+
+function show(...ids) {
+  ids.forEach(id => document.getElementById(id).style.display = "block");
+}
+
+document.addEventListener("change", updatePrice);
+
 function sendOrder() {
   const name = document.getElementById("name").value;
+  const product = document.getElementById("productType").value;
   const flavor = document.getElementById("flavor").value;
-  const quantity = document.getElementById("quantity").value;
   const pickup = document.getElementById("pickup").value;
   const notes = document.getElementById("notes").value;
+  const total = document.getElementById("priceDisplay").innerText;
 
-  if (!name || !flavor || !quantity) {
-    alert("Please fill in all required fields.");
+  if (!name || !product) {
+    alert("Please complete your order.");
     return;
   }
 
+  let details = "";
+
+  if (product === "brigadeiro") {
+    const orderType = document.getElementById("orderType").value;
+    const qty = orderType === "unit"
+      ? document.getElementById("unitQuantity").value + " units"
+      : document.getElementById("boxQuantity").value + " box(es)";
+
+    details = `Brigadeiros%0AQuantity: ${qty}%0AFlavor: ${flavor}`;
+  }
+
+  if (product === "hotchocolate") {
+    details = `Hot Chocolate%0AQuantity: 1 cup`;
+  }
+
   const message =
-    `Hello! I want to place an order 🍫%0A%0A` +
+    `Hello! I want to place an order 🍫☕%0A%0A` +
     `Name: ${name}%0A` +
-    `Flavor: ${flavor}%0A` +
-    `Quantity: ${quantity}%0A` +
+    `${details}%0A` +
+    `${total}%0A` +
     `Pickup date: ${pickup}%0A` +
     `Notes: ${notes}`;
 
-  const phone = "14847973770"; // NO + sign
-  window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+  window.open(`https://wa.me/14847973770?text=${message}`, "_blank");
 }
 </script>
 
