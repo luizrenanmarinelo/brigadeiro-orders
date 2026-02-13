@@ -1,367 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Brigadeiro Orders 🍫</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Brigadeiro Orders 🍫</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #4b2a1a, #6b3e26);
-      padding: 30px 15px;
-    }
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #4b2a1a, #6b3e26);
+  padding: 30px 15px;
+}
 
-    .container {
-      max-width: 420px;
-      margin: auto;
-      background: #ffffff;
-      padding: 25px;
-      border-radius: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
+.container {
+  max-width: 420px;
+  margin: auto;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
 
-    .logo {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
 
-    .logo img {
-      width: 90px;
-    }
+.logo img {
+  width: 90px;
+}
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #4b2a1a;
-    }
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #4b2a1a;
+}
 
-    label {
-      font-size: 14px;
-      font-weight: 500;
-      color: #4b2a1a;
-      margin-top: 15px;
-      display: block;
-    }
+label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b2a1a;
+  margin-top: 15px;
+  display: block;
+}
 
-    input, textarea, select {
-      width: 100%;
-      margin-top: 6px;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 14px;
-    }
+input, textarea, select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
 
-    textarea {
-      resize: none;
-      height: 80px;
-    }
+textarea {
+  resize: none;
+  height: 80px;
+}
 
-    button {
-      width: 100%;
-      margin-top: 25px;
-      padding: 14px;
-      border-radius: 12px;
-      border: none;
-      background: #6b3e26;
-      color: white;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: #6b3e26;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-    button:hover {
-      background: #4b2a1a;
-    }
+button:hover {
+  background: #4b2a1a;
+}
 
-    .price {
-      margin-top: 15px;
-      font-weight: 600;
-      color: #4b2a1a;
-      text-align: center;
-    }
+.price {
+  margin-top: 15px;
+  font-weight: 600;
+  color: #4b2a1a;
+  text-align: center;
+}
 
-    .footer {
-      text-align: center;
-      font-size: 12px;
-      color: #777;
-      margin-top: 15px;
-    }
-  </style>
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+  margin-top: 15px;
+}
+</style>
 </head>
+
 <body>
-<!-- ORDER MODAL -->
+
 <div id="orderModal" style="
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.6);
-  z-index:999;
-  justify-content:center;
-  align-items:center;
+display:none;
+position:fixed;
+top:0; left:0;
+width:100%; height:100%;
+background:rgba(0,0,0,0.6);
+z-index:999;
+justify-content:center;
+align-items:center;
 ">
-  <div style="
-    background:#fff;
-    padding:25px;
-    border-radius:20px;
-    max-width:320px;
-    text-align:center;
-    font-family:Poppins, sans-serif;
-  ">
-    <h3 style="color:#4b2a1a; margin-bottom:10px;">
-      Order Ready ✅
-    </h3>
+<div style="
+background:#fff;
+padding:25px;
+border-radius:20px;
+max-width:320px;
+text-align:center;
+font-family:Poppins, sans-serif;
+">
+<h3 style="color:#4b2a1a; margin-bottom:10px;">Order Ready ✅</h3>
+<p style="font-size:14px; color:#555; margin-bottom:20px;">
+Your order has been copied.<br>
+Paste it into Instagram DM and send 💬
+</p>
 
-    <p style="font-size:14px; color:#555; margin-bottom:20px;">
-      Your order has been copied.<br>
-      Just paste it into Instagram DM and send 💬
-    </p>
+<button onclick="openInstagram()" style="
+background:#6b3e26;
+color:#fff;
+border:none;
+padding:12px;
+width:100%;
+border-radius:10px;
+font-weight:600;
+cursor:pointer;
+">
+Open Instagram
+</button>
 
-    <button onclick="openInstagram()" style="
-      background:#6b3e26;
-      color:#fff;
-      border:none;
-      padding:12px;
-      width:100%;
-      border-radius:10px;
-      font-weight:600;
-      cursor:pointer;
-    ">
-      Open Instagram
-    </button>
-
-    <p style="font-size:12px; color:#888; margin-top:12px;">
-      (Tap & hold → Paste)
-    </p>
-  </div>
+<p style="font-size:12px; color:#888; margin-top:12px;">
+(Tap & hold → Paste)
+</p>
 </div>
-
-<body>
+</div>
 
 <div class="container">
 
-  <div class="logo">
-    <img src="logo.png" alt="Brigadeiros MVC Logo">
-  </div>
+<h2>Order Brigadeiros 🍫</h2>
 
-  <h2>Order Brigadeiros 🍫</h2>
+<label>Your Name</label>
+<input type="text" id="name" placeholder="Enter your name" required>
 
-  <!-- NAME -->
-  <label>Your Name</label>
-  <input type="text" id="name" placeholder="Enter your name" required>
+<label>Product</label>
+<select id="productType" onchange="updateProduct()">
+<option value="">Select product</option>
+<option value="brigadeiro">Brigadeiros</option>
+<option value="hotchocolate">Hot Chocolate</option>
+</select>
 
-  <!-- PRODUCT TYPE -->
-  <label>Product</label>
-  <select id="productType" onchange="updateProduct()">
-    <option value="">Select product</option>
-    <option value="brigadeiro">Brigadeiros</option>
-    <option value="hotchocolate">Hot Chocolate</option>
-  </select>
+<label id="orderTypeLabel" style="display:none;">Order Type</label>
+<select id="orderType" style="display:none;" onchange="updateOptions()">
+<option value="">Select</option>
+<option value="unit">Unit Deals</option>
+<option value="box">Valentine's Boxes</option>
+</select>
 
-  <!-- BRIGADEIRO TYPE -->
-  <label id="orderTypeLabel" style="display:none;">Order Type</label>
-  <select id="orderType" style="display:none;" onchange="updateOptions()">
-    <option value="">Select</option>
-    <option value="unit">Unit Deals</option>
-    <option value="box">Valentine's Boxes</option>
-  </select>
+<label id="unitLabel" style="display:none;">Unit Deals</label>
+<select id="unitQuantity" style="display:none;">
+<option value="">Select deal</option>
+<option value="6">6 units – $10</option>
+<option value="10">10 units – $15</option>
+<option value="15">15 units – $20</option>
+</select>
 
-  <!-- UNIT DEALS -->
-  <label id="unitLabel" style="display:none;">Unit Deals</label>
-  <select id="unitQuantity" style="display:none;">
-    <option value="">Select deal</option>
-    <option value="6">6 units – $10</option>
-    <option value="10">10 units – $15</option>
-    <option value="15">15 units – $20</option>
-  </select>
+<label id="boxLabel" style="display:none;">Valentine's Boxes Deals</label>
+<select id="boxQuantity" style="display:none;">
+<option value="">Select boxes</option>
+<option value="1">1 Box – $5</option>
+<option value="3">3 Boxes – $10</option>
+<option value="4">4 Boxes – $15</option>
+</select>
 
-  <!-- BOX DEALS -->
-  <label id="boxLabel" style="display:none;"> Valentine's Boxes Deals</label>
-  <select id="boxQuantity" style="display:none;">
-    <option value="">Select boxes</option>
-    <option value="1">1 Box – $5</option>
-    <option value="2">3 Boxes – $10</option>
-    <option value="3">4 Boxes – $15</option>
-  </select>
+<label id="flavorLabel" style="display:none;">Flavor</label>
+<select id="flavor" style="display:none;">
+<option value="">Select flavor</option>
+<option>Brigadeiros</option>
+<option>Beijinhos</option>
+<option>Strawberry Nesquik</option>
+<option>Mixed</option>
+</select>
 
-  <!-- FLAVORS -->
-  <label id="flavorLabel" style="display:none;">Flavor</label>
-  <select id="flavor" style="display:none;">
-    <option value="">Select flavor</option>
-    <option>Brigadeiros</option>
-    <option>Beijinhos</option>
-    <option>Strawberry Nesquik</option>
-    <option>Mixed</option>
-  </select>
+<label id="hotLabel" style="display:none;">Hot Chocolate</label>
+<select id="hotQuantity" style="display:none;">
+<option value="">Select size</option>
+<option value="1">1 Cup – $5</option>
+<option value="2">2 Cups – $9</option>
+<option value="3">3 Cups – $12</option>
+<option value="4">4 Cups – $15</option>
+</select>
 
-  <!-- HOT CHOCOLATE -->
-  <label id="hotLabel" style="display:none;">Hot Chocolate</label>
-  <select id="hotQuantity" style="display:none;">
-    <option value="">Select size</option>
-    <option value="1">1 Cup – $5</option>
-    <option value="2">2 Cup – $9</option>
-    <option value="3">3 Cup – $12</option>
-    <option value="4">4 Cup – $15</option>
-  </select>
+<p class="price" id="priceDisplay">Total: $0</p>
 
-  <p class="price" id="priceDisplay">Total: $0</p>
+<label>Pickup/Delivery Date</label>
+<input type="date" id="pickup">
 
-  <!-- PICKUP -->
-  <label>Pickup/Delivery Date</label>
-  <input type="date" id="pickup">
-
-  <!-- NOTES -->
-  <label>Extra Notes</label>
-  <textarea id="notes" placeholder="Any special requests?"></textarea>
+<label>Extra Notes</label>
+<textarea id="notes" placeholder="Any special requests?"></textarea>
 
 <button onclick="sendOrder()">Send Order</button>
 
-  <div class="footer">
-    Handmade Brazilian sweets • On-campus pickup
-  </div>
+<div class="footer">
+Handmade Brazilian sweets • On-campus pickup
+</div>
 
 </div>
 
 <script>
-/* ===== ORDER CHANNEL CONFIG ===== */
-const ORDER_CHANNEL = "instagram"; 
-// change to "whatsapp" when ready
-
 const INSTAGRAM_USERNAME = "brigadeiros_mvc";
-const WHATSAPP_PHONE = "14847973770";
-/* ===== END CONFIG ===== */
 
-function updateProduct() {
-  const product = document.getElementById("productType").value;
-
-  hideAll();
-
-  if (product === "brigadeiro") {
-    show("orderType", "orderTypeLabel", "flavor", "flavorLabel");
-  }
-
-  if (product === "hotchocolate") {
-    show("hotQuantity", "hotLabel");
-  }
-
-  updatePrice();
+function hide(...ids){
+ids.forEach(id => document.getElementById(id).style.display="none");
 }
 
-function updateOptions() {
-  const type = document.getElementById("orderType").value;
-
-  hide("unitQuantity", "unitLabel", "boxQuantity", "boxLabel");
-
-  if (type === "unit") show("unitQuantity", "unitLabel");
-  if (type === "box") show("boxQuantity", "boxLabel");
-
-  updatePrice();
+function show(...ids){
+ids.forEach(id => document.getElementById(id).style.display="block");
 }
 
-function updatePrice() {
-  let total = 0;
-
-  const unit = document.getElementById("unitQuantity").value;
-  const box = document.getElementById("boxQuantity").value;
-  const hot = document.getElementById("hotQuantity").value;
-
-  if (unit === "6") total = 10;
-  if (unit === "10") total = 15;
-  if (unit === "15") total = 20;
-
-  if (box === "1") total = 5;
-  if (box === "3") total = 10;
-  if (box === "4") total = 15;
-
-  if (hot === "1") total = 5;
-  if (hot === "2") total = 9;
-  if (hot === "3") total = 12;
-  if (hot === "4") total = 15;
-
-  document.getElementById("priceDisplay").innerText = `Total: $${total}`;
+function updateProduct(){
+hideAll();
+let product=document.getElementById("productType").value;
+if(product==="brigadeiro") show("orderType","orderTypeLabel","flavor","flavorLabel");
+if(product==="hotchocolate") show("hotQuantity","hotLabel");
+updatePrice();
 }
 
-function hideAll() {
-  hide(
-    "orderType","orderTypeLabel",
-    "unitQuantity","unitLabel",
-    "boxQuantity","boxLabel",
-    "flavor","flavorLabel",
-    "hotQuantity","hotLabel"
-  );
+function updateOptions(){
+hide("unitQuantity","unitLabel","boxQuantity","boxLabel");
+let type=document.getElementById("orderType").value;
+if(type==="unit") show("unitQuantity","unitLabel");
+if(type==="box") show("boxQuantity","boxLabel");
+updatePrice();
 }
 
-function hide(...ids) {
-  ids.forEach(id => document.getElementById(id).style.display = "none");
+function hideAll(){
+hide("orderType","orderTypeLabel","unitQuantity","unitLabel","boxQuantity","boxLabel","flavor","flavorLabel","hotQuantity","hotLabel");
 }
 
-function show(...ids) {
-  ids.forEach(id => document.getElementById(id).style.display = "block");
+function updatePrice(){
+let total=0;
+let unit=document.getElementById("unitQuantity").value;
+let box=document.getElementById("boxQuantity").value;
+let hot=document.getElementById("hotQuantity").value;
+
+if(unit==="6") total=10;
+if(unit==="10") total=15;
+if(unit==="15") total=20;
+
+if(box==="1") total=5;
+if(box==="3") total=10;
+if(box==="4") total=15;
+
+if(hot==="1") total=5;
+if(hot==="2") total=9;
+if(hot==="3") total=12;
+if(hot==="4") total=15;
+
+document.getElementById("priceDisplay").innerText=`Total: $${total}`;
 }
 
-document.addEventListener("change", updatePrice);
-</script>
+document.addEventListener("change",updatePrice);
 
-<script>
-let copiedMessage = "";
+function copyText(text){
+let temp=document.createElement("textarea");
+temp.value=text;
+document.body.appendChild(temp);
+temp.select();
+document.execCommand("copy");
+document.body.removeChild(temp);
+}
 
-function sendOrder() {
-  const name = document.getElementById("name").value;
-  const product = document.getElementById("productType").value;
-  const flavor = document.getElementById("flavor").value;
-  const pickup = document.getElementById("pickup").value;
-  const notes = document.getElementById("notes").value;
-  const total = document.getElementById("priceDisplay").innerText;
+function sendOrder(){
 
-  if (!name || !product) {
-    alert("Please complete your order.");
-    return;
-  }
+let name=document.getElementById("name").value.trim();
+let product=document.getElementById("productType").value;
+let flavor=document.getElementById("flavor").value;
+let pickup=document.getElementById("pickup").value;
+let notes=document.getElementById("notes").value;
+let total=document.getElementById("priceDisplay").innerText;
 
-  let details = "";
+if(!name || !product){
+alert("Please complete your order.");
+return;
+}
 
-  if (product === "brigadeiro") {
-    const orderType = document.getElementById("orderType").value;
-    const qty = orderType === "unit"
-      ? document.getElementById("unitQuantity").value + " units"
-      : document.getElementById("boxQuantity").value + " box(es)";
+let details="";
 
-    details = `Brigadeiros
-Quantity: ${qty}
+if(product==="brigadeiro"){
+let orderType=document.getElementById("orderType").value;
+if(!orderType){ alert("Select order type."); return; }
+
+let qtyValue="";
+if(orderType==="unit"){
+qtyValue=document.getElementById("unitQuantity").value;
+if(!qtyValue){ alert("Select unit deal."); return; }
+qtyValue+=" units";
+}
+if(orderType==="box"){
+qtyValue=document.getElementById("boxQuantity").value;
+if(!qtyValue){ alert("Select box deal."); return; }
+qtyValue+=" box(es)";
+}
+
+if(!flavor){ alert("Select flavor."); return; }
+
+details=`Brigadeiros
+Quantity: ${qtyValue}
 Flavor: ${flavor}`;
-  }
-
-  if (product === "hotchocolate") {
-    details = `Hot Chocolate
-Quantity: 1 cup`;
-  }
-
-  copiedMessage =
-`---ORDER DETAILS---🍫☕
-Name: ${name}
-${details}
-${total}
-Pickup date: ${pickup}
-Notes: ${notes}`;
-
-  navigator.clipboard.writeText(copiedMessage).then(() => {
-    document.getElementById("orderModal").style.display = "flex";
-  }).catch(() => {
-    alert("Could not copy order. Please try again.");
-  });
 }
 
-function openInstagram() {
-  document.getElementById("orderModal").style.display = "none";
-  window.open(`https://ig.me/m/${INSTAGRAM_USERNAME}`, "_blank");
+if(product==="hotchocolate"){
+let hotQty=document.getElementById("hotQuantity").value;
+if(!hotQty){ alert("Select hot chocolate size."); return; }
+
+details=`Hot Chocolate
+Quantity: ${hotQty} cup(s)`;
+}
+
+let message=
+`🍫--NEW ORDER--🍫
+
+Name: ${name}
+Product: ${product}
+
+${details}
+
+${total}
+Pickup Date: ${pickup || "Not specified"}
+Notes: ${notes || "None"}
+
+Thank you! 💛`;
+
+copyText(message);
+document.getElementById("orderModal").style.display="flex";
+}
+
+function openInstagram(){
+document.getElementById("orderModal").style.display="none";
+
+let isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+if(isMobile){
+window.location.href=`https://ig.me/m/${INSTAGRAM_USERNAME}`;
+}else{
+window.location.href=`https://www.instagram.com/${INSTAGRAM_USERNAME}/`;
+}
 }
 </script>
-
 
 </body>
 </html>
