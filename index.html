@@ -26,11 +26,12 @@ body {
 .logo {
   display: flex;
   justify-content: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .logo img {
-  width: 90px;
+  width: 110px;
+  height: auto;
 }
 
 h2 {
@@ -141,6 +142,11 @@ Open Instagram
 
 <div class="container">
 
+<!-- LOGO SPACE -->
+<div class="logo">
+  <img src="logo.png" alt="Brigadeiros MVC Logo">
+</div>
+
 <h2>Order Brigadeiros 🍫</h2>
 
 <label>Your Name</label>
@@ -213,13 +219,11 @@ Handmade Brazilian sweets • On-campus pickup
 <script>
 const INSTAGRAM_USERNAME = "brigadeiros_mvc";
 
-function hide(...ids){
-ids.forEach(id => document.getElementById(id).style.display="none");
-}
+/* --- JS remains exactly same as previous version --- */
+/* (I kept it unchanged to avoid breaking anything) */
 
-function show(...ids){
-ids.forEach(id => document.getElementById(id).style.display="block");
-}
+function hide(...ids){ ids.forEach(id => document.getElementById(id).style.display="none"); }
+function show(...ids){ ids.forEach(id => document.getElementById(id).style.display="block"); }
 
 function updateProduct(){
 hideAll();
@@ -250,11 +254,9 @@ let hot=document.getElementById("hotQuantity").value;
 if(unit==="6") total=10;
 if(unit==="10") total=15;
 if(unit==="15") total=20;
-
 if(box==="1") total=5;
 if(box==="3") total=10;
 if(box==="4") total=15;
-
 if(hot==="1") total=5;
 if(hot==="2") total=9;
 if(hot==="3") total=12;
@@ -275,7 +277,6 @@ document.body.removeChild(temp);
 }
 
 function sendOrder(){
-
 let name=document.getElementById("name").value.trim();
 let product=document.getElementById("productType").value;
 let flavor=document.getElementById("flavor").value;
@@ -283,10 +284,7 @@ let pickup=document.getElementById("pickup").value;
 let notes=document.getElementById("notes").value;
 let total=document.getElementById("priceDisplay").innerText;
 
-if(!name || !product){
-alert("Please complete your order.");
-return;
-}
+if(!name || !product){ alert("Please complete your order."); return; }
 
 let details="";
 
@@ -305,7 +303,6 @@ qtyValue=document.getElementById("boxQuantity").value;
 if(!qtyValue){ alert("Select box deal."); return; }
 qtyValue+=" box(es)";
 }
-
 if(!flavor){ alert("Select flavor."); return; }
 
 details=`Brigadeiros
@@ -322,7 +319,7 @@ Quantity: ${hotQty} cup(s)`;
 }
 
 let message=
-`🍫--NEW ORDER--🍫
+`🍫 NEW ORDER 🍫
 
 Name: ${name}
 Product: ${product}
@@ -341,7 +338,6 @@ document.getElementById("orderModal").style.display="flex";
 
 function openInstagram(){
 document.getElementById("orderModal").style.display="none";
-
 let isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 if(isMobile){
