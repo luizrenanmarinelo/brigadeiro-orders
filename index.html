@@ -338,13 +338,8 @@ document.getElementById("orderModal").style.display="flex";
 
 function openInstagram(){
 document.getElementById("orderModal").style.display="none";
-let isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-if(isMobile){
-window.location.href=`https://ig.me/m/${brigadeiros_mvc}`;
-}else{
-window.location.href=`https://www.instagram.com/direct/inbox/${brigadeiros_mvc}/`;
-}
+window.open("https://www.instagram.com/direct/new/?username=brigadeiros_mvc","_blank");
 }
 </script>
 
