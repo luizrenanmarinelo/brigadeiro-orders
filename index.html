@@ -174,7 +174,7 @@ Open Instagram
 <option value="15">15 units – $20</option>
 </select>
 
-<label id="boxLabel" style="display:none;">Brigadeiro Boxes Deals</label>
+<label id="boxLabel" style="display:none;">Boxes Deals</label>
 <select id="boxQuantity" style="display:none;">
 <option value="">Select boxes</option>
 <option value="1">1 Box – $5</option>
@@ -341,9 +341,9 @@ document.getElementById("orderModal").style.display="none";
 let isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 if(isMobile){
-window.location.href=`https://ig.me/m/${INSTAGRAM_USERNAME}`;
+window.location.href=`https://ig.me/m/${brigadeiros_mvc}`;
 }else{
-window.location.href=`https://www.instagram.com/${INSTAGRAM_USERNAME}/`;
+window.location.href=`https://www.instagram.com/direct/inbox/${brigadeiros_mvc}/`;
 }
 }
 </script>
